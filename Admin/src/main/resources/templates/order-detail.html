@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+
+<head th:replace="fragments :: header">
+</head>
+<body id="page-top">
+<!-- Page Wrapper -->
+<div id="wrapper">
+  <!-- Sidebar -->
+  <ul th:replace="fragments :: sidebar">
+  </ul>
+  <!-- End of Sidebar -->
+
+  <!-- Content Wrapper -->
+  <div id="content-wrapper" class="d-flex flex-column">
+
+    <!-- Main Content -->
+    <div id="content">
+
+      <!-- Topbar -->
+      <nav th:replace="fragments :: topbar"></nav>
+      <!-- End of Topbar -->
+
+      <!-- Begin Page Content -->
+      <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <div th:if = "${size == 0}">
+          <p>No Orders in shop</p>
+        </div>
+
+        <div th:if = "${success}" class="text-center alert alert-success">
+          <p th:text = "${success}"></p>
+        </div>
+        <div th:if = "${error}" class="text-center alert alert-danger">
+          <p th:text = "${error}"></p>
+        </div>
+
+        <a class="btn btn-primary" th:href="@{/orders}">Back to orders</a>
+        <table class="table table-striped" th:if = "${size > 0}">
+          <thead>
+          <tr>
+            <th scope="col">Order Details Id</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Product Image</th>
+            <th scope="col">Order Quantity</th>
+            <th scope="col">Unit Price</th>
+            <th scope="col">Total Price</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each = "detail : ${details}">
+            <th scope="row" th:text = "${detail.id}"></th>
+            <td th:text = "${detail.product.name}"></td>
+            <td><img src="" style="height: 40px; width: 40px;" th:src = "*{'data:image/jpeg;base64,' + {detail.product.image}}"></td>
+            <td th:text = "${detail.quantity}"></td>
+            <td th:text = "${detail.unitPrice}"></td>
+            <td th:text = "${detail.order.totalPrice}"></td>
+
+          </tr>
+          </tbody>
+        </table>
+
+
+      </div>
+      <!-- /.container-fluid -->
+
+    </div>
+    <!-- End of Main Content -->
+
+    <!-- Footer -->
+    <footer th:replace="fragments :: footer">
+    </footer>
+    <!-- End of Footer -->
+
+  </div>
+  <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a th:replace="fragments :: scroll">
+</a>
+<!-- Logout Modal-->
+
+<!-- Bootstrap core JavaScript-->
+<div th:replace="fragments :: script"></div>
+<script th:src="@{/js/categories.js}"></script>
+
+</body>
+
+</html>
